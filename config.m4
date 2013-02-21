@@ -18,7 +18,7 @@ dnl Make sure that the comment is aligned:
 [  --enable-webp           Enable webp support])
 
 if test "$PHP_WEBP" != "no"; then
-  dnl Write more examples of tests here...
+    export CPPFLAGS="$CPPFLAGS -DWEBP_HAVE_JPEG -DWEBP_HAVE_PNG"
 
   dnl # --with-webp -> check with-path
   dnl SEARCH_PATH="/usr/local /usr"     # you might want to change this
@@ -41,7 +41,7 @@ if test "$PHP_WEBP" != "no"; then
   dnl fi
 
   dnl # --with-webp -> add include path
-  dnl PHP_ADD_INCLUDE($WEBP_DIR/include)
+  PHP_ADD_INCLUDE(/usr/local/include)
 
   dnl # --with-webp -> check for lib and symbol presence
   dnl LIBNAME=webp # you may want to change this
@@ -49,7 +49,9 @@ if test "$PHP_WEBP" != "no"; then
 
   dnl PHP_CHECK_LIBRARY($LIBNAME,$LIBSYMBOL,
   dnl [
-  dnl   PHP_ADD_LIBRARY_WITH_PATH($LIBNAME, $WEBP_DIR/lib, WEBP_SHARED_LIBADD)
+  PHP_ADD_LIBRARY_WITH_PATH(jpeg, /usr/local/lib, WEBP_SHARED_LIBADD)
+  PHP_ADD_LIBRARY_WITH_PATH(png, /usr/local/lib, WEBP_SHARED_LIBADD)
+  PHP_ADD_LIBRARY_WITH_PATH(webp, /usr/local/lib, WEBP_SHARED_LIBADD)
   dnl   AC_DEFINE(HAVE_WEBPLIB,1,[ ])
   dnl ],[
   dnl   AC_MSG_ERROR([wrong webp lib version or lib not found])
@@ -57,7 +59,7 @@ if test "$PHP_WEBP" != "no"; then
   dnl   -L$WEBP_DIR/lib -lm
   dnl ])
   dnl
-  dnl PHP_SUBST(WEBP_SHARED_LIBADD)
+  PHP_SUBST(WEBP_SHARED_LIBADD)
 
   PHP_NEW_EXTENSION(webp, webp.c, $ext_shared)
 fi

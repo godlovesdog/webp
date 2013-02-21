@@ -4029,8 +4029,7 @@ ext_output=$PHP_PHP_CONFIG
 PHP_CONFIG=$PHP_PHP_CONFIG
 prefix=`$PHP_CONFIG --prefix 2>/dev/null`
 phpincludedir=`$PHP_CONFIG --include-dir 2>/dev/null`
-INCLUDES="`$PHP_CONFIG --includes 2>/dev/null` -I/usr/local/include"
-EXTRA_LIBS=" -L/usr/local/lib -ljpeg -lpng -lwebp"
+INCLUDES=`$PHP_CONFIG --includes 2>/dev/null`
 EXTENSION_DIR=`$PHP_CONFIG --extension-dir 2>/dev/null`
 PHP_EXECUTABLE=`$PHP_CONFIG --php-binary 2>/dev/null`
 
@@ -4384,9 +4383,335 @@ $as_echo "$ext_output" >&6; }
 
 
 if test "$PHP_WEBP" != "no"; then
+    export CPPFLAGS="$CPPFLAGS -DWEBP_HAVE_JPEG -DWEBP_HAVE_PNG"
 
 
 
+  if test "/usr/local/include" != "/usr/include"; then
+
+  if test -z "/usr/local/include" || echo "/usr/local/include" | grep '^/' >/dev/null ; then
+    ai_p=/usr/local/include
+  else
+
+    ep_dir="`echo /usr/local/include|$SED 's%/*[^/][^/]*/*$%%'`"
+
+    ep_realdir="`(cd \"$ep_dir\" && pwd)`"
+    ai_p="$ep_realdir/`basename \"/usr/local/include\"`"
+  fi
+
+
+
+  unique=`echo $ai_p|$SED 's/[^a-zA-Z0-9]/_/g'`
+
+  cmd="echo $ac_n \"\$INCLUDEPATH$unique$ac_c\""
+  if test -n "$unique" && test "`eval $cmd`" = "" ; then
+    eval "INCLUDEPATH$unique=set"
+
+      if test ""; then
+        INCLUDES="-I$ai_p $INCLUDES"
+      else
+        INCLUDES="$INCLUDES -I$ai_p"
+      fi
+
+  fi
+
+  fi
+
+
+
+
+
+  if test "$ext_shared" = "yes"; then
+    WEBP_SHARED_LIBADD="-ljpeg $WEBP_SHARED_LIBADD"
+    if test -n "/usr/local/lib"; then
+
+  if test "/usr/local/lib" != "/usr/$PHP_LIBDIR" && test "/usr/local/lib" != "/usr/lib"; then
+
+  if test -z "/usr/local/lib" || echo "/usr/local/lib" | grep '^/' >/dev/null ; then
+    ai_p=/usr/local/lib
+  else
+
+    ep_dir="`echo /usr/local/lib|$SED 's%/*[^/][^/]*/*$%%'`"
+
+    ep_realdir="`(cd \"$ep_dir\" && pwd)`"
+    ai_p="$ep_realdir/`basename \"/usr/local/lib\"`"
+  fi
+
+
+      if test "$ext_shared" = "yes"; then
+        WEBP_SHARED_LIBADD="-L$ai_p $WEBP_SHARED_LIBADD"
+        test -n "$ld_runpath_switch" && WEBP_SHARED_LIBADD="$ld_runpath_switch$ai_p $WEBP_SHARED_LIBADD"
+      else
+
+
+
+  unique=`echo $ai_p|$SED 's/[^a-zA-Z0-9]/_/g'`
+
+  cmd="echo $ac_n \"\$LIBPATH$unique$ac_c\""
+  if test -n "$unique" && test "`eval $cmd`" = "" ; then
+    eval "LIBPATH$unique=set"
+
+    test -n "$ld_runpath_switch" && LDFLAGS="$LDFLAGS $ld_runpath_switch$ai_p"
+    LDFLAGS="$LDFLAGS -L$ai_p"
+    PHP_RPATHS="$PHP_RPATHS $ai_p"
+
+  fi
+
+
+      fi
+
+  fi
+
+    fi
+  else
+
+
+  if test -n "/usr/local/lib"; then
+
+  if test "/usr/local/lib" != "/usr/$PHP_LIBDIR" && test "/usr/local/lib" != "/usr/lib"; then
+
+  if test -z "/usr/local/lib" || echo "/usr/local/lib" | grep '^/' >/dev/null ; then
+    ai_p=/usr/local/lib
+  else
+
+    ep_dir="`echo /usr/local/lib|$SED 's%/*[^/][^/]*/*$%%'`"
+
+    ep_realdir="`(cd \"$ep_dir\" && pwd)`"
+    ai_p="$ep_realdir/`basename \"/usr/local/lib\"`"
+  fi
+
+
+
+
+
+  unique=`echo $ai_p|$SED 's/[^a-zA-Z0-9]/_/g'`
+
+  cmd="echo $ac_n \"\$LIBPATH$unique$ac_c\""
+  if test -n "$unique" && test "`eval $cmd`" = "" ; then
+    eval "LIBPATH$unique=set"
+
+    test -n "$ld_runpath_switch" && LDFLAGS="$LDFLAGS $ld_runpath_switch$ai_p"
+    LDFLAGS="$LDFLAGS -L$ai_p"
+    PHP_RPATHS="$PHP_RPATHS $ai_p"
+
+  fi
+
+
+
+  fi
+
+  fi
+
+
+  case jpeg in
+  c|c_r|pthread*) ;;
+  *)
+      LIBS="-ljpeg $LIBS"
+   ;;
+  esac
+
+
+
+
+  fi
+
+
+
+
+  if test "$ext_shared" = "yes"; then
+    WEBP_SHARED_LIBADD="-lpng $WEBP_SHARED_LIBADD"
+    if test -n "/usr/local/lib"; then
+
+  if test "/usr/local/lib" != "/usr/$PHP_LIBDIR" && test "/usr/local/lib" != "/usr/lib"; then
+
+  if test -z "/usr/local/lib" || echo "/usr/local/lib" | grep '^/' >/dev/null ; then
+    ai_p=/usr/local/lib
+  else
+
+    ep_dir="`echo /usr/local/lib|$SED 's%/*[^/][^/]*/*$%%'`"
+
+    ep_realdir="`(cd \"$ep_dir\" && pwd)`"
+    ai_p="$ep_realdir/`basename \"/usr/local/lib\"`"
+  fi
+
+
+      if test "$ext_shared" = "yes"; then
+        WEBP_SHARED_LIBADD="-L$ai_p $WEBP_SHARED_LIBADD"
+        test -n "$ld_runpath_switch" && WEBP_SHARED_LIBADD="$ld_runpath_switch$ai_p $WEBP_SHARED_LIBADD"
+      else
+
+
+
+  unique=`echo $ai_p|$SED 's/[^a-zA-Z0-9]/_/g'`
+
+  cmd="echo $ac_n \"\$LIBPATH$unique$ac_c\""
+  if test -n "$unique" && test "`eval $cmd`" = "" ; then
+    eval "LIBPATH$unique=set"
+
+    test -n "$ld_runpath_switch" && LDFLAGS="$LDFLAGS $ld_runpath_switch$ai_p"
+    LDFLAGS="$LDFLAGS -L$ai_p"
+    PHP_RPATHS="$PHP_RPATHS $ai_p"
+
+  fi
+
+
+      fi
+
+  fi
+
+    fi
+  else
+
+
+  if test -n "/usr/local/lib"; then
+
+  if test "/usr/local/lib" != "/usr/$PHP_LIBDIR" && test "/usr/local/lib" != "/usr/lib"; then
+
+  if test -z "/usr/local/lib" || echo "/usr/local/lib" | grep '^/' >/dev/null ; then
+    ai_p=/usr/local/lib
+  else
+
+    ep_dir="`echo /usr/local/lib|$SED 's%/*[^/][^/]*/*$%%'`"
+
+    ep_realdir="`(cd \"$ep_dir\" && pwd)`"
+    ai_p="$ep_realdir/`basename \"/usr/local/lib\"`"
+  fi
+
+
+
+
+
+  unique=`echo $ai_p|$SED 's/[^a-zA-Z0-9]/_/g'`
+
+  cmd="echo $ac_n \"\$LIBPATH$unique$ac_c\""
+  if test -n "$unique" && test "`eval $cmd`" = "" ; then
+    eval "LIBPATH$unique=set"
+
+    test -n "$ld_runpath_switch" && LDFLAGS="$LDFLAGS $ld_runpath_switch$ai_p"
+    LDFLAGS="$LDFLAGS -L$ai_p"
+    PHP_RPATHS="$PHP_RPATHS $ai_p"
+
+  fi
+
+
+
+  fi
+
+  fi
+
+
+  case png in
+  c|c_r|pthread*) ;;
+  *)
+      LIBS="-lpng $LIBS"
+   ;;
+  esac
+
+
+
+
+  fi
+
+
+
+
+  if test "$ext_shared" = "yes"; then
+    WEBP_SHARED_LIBADD="-lwebp $WEBP_SHARED_LIBADD"
+    if test -n "/usr/local/lib"; then
+
+  if test "/usr/local/lib" != "/usr/$PHP_LIBDIR" && test "/usr/local/lib" != "/usr/lib"; then
+
+  if test -z "/usr/local/lib" || echo "/usr/local/lib" | grep '^/' >/dev/null ; then
+    ai_p=/usr/local/lib
+  else
+
+    ep_dir="`echo /usr/local/lib|$SED 's%/*[^/][^/]*/*$%%'`"
+
+    ep_realdir="`(cd \"$ep_dir\" && pwd)`"
+    ai_p="$ep_realdir/`basename \"/usr/local/lib\"`"
+  fi
+
+
+      if test "$ext_shared" = "yes"; then
+        WEBP_SHARED_LIBADD="-L$ai_p $WEBP_SHARED_LIBADD"
+        test -n "$ld_runpath_switch" && WEBP_SHARED_LIBADD="$ld_runpath_switch$ai_p $WEBP_SHARED_LIBADD"
+      else
+
+
+
+  unique=`echo $ai_p|$SED 's/[^a-zA-Z0-9]/_/g'`
+
+  cmd="echo $ac_n \"\$LIBPATH$unique$ac_c\""
+  if test -n "$unique" && test "`eval $cmd`" = "" ; then
+    eval "LIBPATH$unique=set"
+
+    test -n "$ld_runpath_switch" && LDFLAGS="$LDFLAGS $ld_runpath_switch$ai_p"
+    LDFLAGS="$LDFLAGS -L$ai_p"
+    PHP_RPATHS="$PHP_RPATHS $ai_p"
+
+  fi
+
+
+      fi
+
+  fi
+
+    fi
+  else
+
+
+  if test -n "/usr/local/lib"; then
+
+  if test "/usr/local/lib" != "/usr/$PHP_LIBDIR" && test "/usr/local/lib" != "/usr/lib"; then
+
+  if test -z "/usr/local/lib" || echo "/usr/local/lib" | grep '^/' >/dev/null ; then
+    ai_p=/usr/local/lib
+  else
+
+    ep_dir="`echo /usr/local/lib|$SED 's%/*[^/][^/]*/*$%%'`"
+
+    ep_realdir="`(cd \"$ep_dir\" && pwd)`"
+    ai_p="$ep_realdir/`basename \"/usr/local/lib\"`"
+  fi
+
+
+
+
+
+  unique=`echo $ai_p|$SED 's/[^a-zA-Z0-9]/_/g'`
+
+  cmd="echo $ac_n \"\$LIBPATH$unique$ac_c\""
+  if test -n "$unique" && test "`eval $cmd`" = "" ; then
+    eval "LIBPATH$unique=set"
+
+    test -n "$ld_runpath_switch" && LDFLAGS="$LDFLAGS $ld_runpath_switch$ai_p"
+    LDFLAGS="$LDFLAGS -L$ai_p"
+    PHP_RPATHS="$PHP_RPATHS $ai_p"
+
+  fi
+
+
+
+  fi
+
+  fi
+
+
+  case webp in
+  c|c_r|pthread*) ;;
+  *)
+      LIBS="-lwebp $LIBS"
+   ;;
+  esac
+
+
+
+
+  fi
+
+
+
+  PHP_VAR_SUBST="$PHP_VAR_SUBST WEBP_SHARED_LIBADD"
 
 
 
@@ -5192,7 +5517,7 @@ ia64-*-hpux*)
   ;;
 *-*-irix6*)
   # Find out which ABI we are using.
-  echo '#line 5194 "configure"' > conftest.$ac_ext
+  echo '#line 5520 "configure"' > conftest.$ac_ext
   if { { eval echo "\"\$as_me\":${as_lineno-$LINENO}: \"$ac_compile\""; } >&5
   (eval $ac_compile) 2>&5
   ac_status=$?
@@ -6595,7 +6920,7 @@ else
       LDFLAGS="$LDFLAGS -Wl,-exported_symbols_list,conftest.sym"
 
 cat > conftest.$ac_ext <<EOF
-#line 6597 "configure"
+#line 6923 "configure"
 #include "confdefs.h"
 int main() {
 ; return 0; }
@@ -6753,11 +7078,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"configure:6755: $lt_compile\"" >&5)
+   (eval echo "\"configure:7081: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "configure:6759: \$? = $ac_status" >&5
+   echo "configure:7085: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -7051,11 +7376,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"configure:7053: $lt_compile\"" >&5)
+   (eval echo "\"configure:7379: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "configure:7057: \$? = $ac_status" >&5
+   echo "configure:7383: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -7155,11 +7480,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"configure:7157: $lt_compile\"" >&5)
+   (eval echo "\"configure:7483: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "configure:7161: \$? = $ac_status" >&5
+   echo "configure:7487: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -7619,7 +7944,7 @@ _LT_EOF
        # Determine the default libpath from the value encoded in an empty executable.
 
 cat > conftest.$ac_ext <<EOF
-#line 7621 "configure"
+#line 7947 "configure"
 #include "confdefs.h"
 int main() {
 ; return 0; }
@@ -7661,7 +7986,7 @@ if test -z "$aix_libpath"; then aix_libpath="/usr/lib:/lib"; fi
 	 # Determine the default libpath from the value encoded in an empty executable.
 
 cat > conftest.$ac_ext <<EOF
-#line 7663 "configure"
+#line 7989 "configure"
 #include "confdefs.h"
 int main() {
 ; return 0; }
@@ -9186,7 +9511,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<EOF
-#line 9188 "configure"
+#line 9514 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -9286,7 +9611,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<EOF
-#line 9288 "configure"
+#line 9614 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -10351,7 +10676,7 @@ case $host_os in
       # Determine the default libpath from the value encoded in an empty executable.
 
 cat > conftest.$ac_ext <<EOF
-#line 10353 "configure"
+#line 10679 "configure"
 #include "confdefs.h"
 int main() {
 ; return 0; }
@@ -10394,7 +10719,7 @@ if test -z "$aix_libpath"; then aix_libpath="/usr/lib:/lib"; fi
 	# Determine the default libpath from the value encoded in an empty executable.
 
 cat > conftest.$ac_ext <<EOF
-#line 10396 "configure"
+#line 10722 "configure"
 #include "confdefs.h"
 int main() {
 ; return 0; }
@@ -11646,11 +11971,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"configure:11648: $lt_compile\"" >&5)
+   (eval echo "\"configure:11974: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "configure:11652: \$? = $ac_status" >&5
+   echo "configure:11978: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -11750,11 +12075,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"configure:11752: $lt_compile\"" >&5)
+   (eval echo "\"configure:12078: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "configure:11756: \$? = $ac_status" >&5
+   echo "configure:12082: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -12989,7 +13314,7 @@ LIBTOOL='$(SHELL) $(top_builddir)/libtool'
 all_targets='$(PHP_MODULES) $(PHP_ZEND_EX)'
 install_targets="install-modules install-headers"
 phplibdir="`pwd`/modules"
-CPPFLAGS="$CPPFLAGS -DHAVE_CONFIG_H -DWEBP_HAVE_JPEG -DWEBP_HAVE_PNG"
+CPPFLAGS="$CPPFLAGS -DHAVE_CONFIG_H"
 CFLAGS_CLEAN='$(CFLAGS)'
 CXXFLAGS_CLEAN='$(CXXFLAGS)'
 

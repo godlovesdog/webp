@@ -4,38 +4,39 @@ top_srcdir = /home/ben/php-5.3.21/ext/webp
 top_builddir = /home/ben/php-5.3.21/ext/webp
 EGREP = /bin/grep -E
 SED = /bin/sed
-CONFIGURE_COMMAND = './configure'
-CONFIGURE_OPTIONS =
+CONFIGURE_COMMAND = './configure' '--with-php-config=/usr/local/php-5.3/bin/php-config'
+CONFIGURE_OPTIONS = '--with-php-config=/usr/local/php-5.3/bin/php-config'
 SHLIB_SUFFIX_NAME = so
 SHLIB_DL_SUFFIX_NAME = so
 ZEND_EXT_TYPE = zend_extension
 RE2C = exit 0;
 AWK = gawk
+WEBP_SHARED_LIBADD = -Wl,-rpath,/usr/local/lib -L/usr/local/lib -lwebp -Wl,-rpath,/usr/local/lib -L/usr/local/lib -lpng -Wl,-rpath,/usr/local/lib -L/usr/local/lib -ljpeg
 shared_objects_webp = webp.lo
 PHP_PECL_EXTENSION = webp
 PHP_MODULES = $(phplibdir)/webp.la
 PHP_ZEND_EX =
 all_targets = $(PHP_MODULES) $(PHP_ZEND_EX)
 install_targets = install-modules install-headers
-prefix = /usr/local/php
+prefix = /usr/local/php-5.3
 exec_prefix = $(prefix)
 libdir = ${exec_prefix}/lib
-prefix = /usr/local/php
+prefix = /usr/local/php-5.3
 phplibdir = /home/ben/php-5.3.21/ext/webp/modules
-phpincludedir = /usr/local/php/include/php
+phpincludedir = /usr/local/php-5.3/include/php
 CC = cc
 CFLAGS = -g -O2
 CFLAGS_CLEAN = $(CFLAGS)
 CPP = cc -E
-CPPFLAGS = -DHAVE_CONFIG_H -DWEBP_HAVE_JPEG -DWEBP_HAVE_PNG
+CPPFLAGS = -DWEBP_HAVE_JPEG -DWEBP_HAVE_PNG -DHAVE_CONFIG_H
 CXX =
 CXXFLAGS =
 CXXFLAGS_CLEAN = $(CXXFLAGS)
-EXTENSION_DIR = /usr/local/php/lib/php/extensions/no-debug-non-zts-20060613
-PHP_EXECUTABLE = /usr/local/php/bin/php
+EXTENSION_DIR = /usr/local/php-5.3/lib/php/extensions/no-debug-non-zts-20090626
+PHP_EXECUTABLE = /usr/local/php-5.3/bin/php
 EXTRA_LDFLAGS =
-EXTRA_LIBS = -L/usr/local/lib -ljpeg -lpng -lwebp
-INCLUDES = -I/usr/local/php/include/php -I/usr/local/php/include/php/main -I/usr/local/php/include/php/TSRM -I/usr/local/php/include/php/Zend -I/usr/local/php/include/php/ext -I/usr/local/php/include/php/ext/date/lib -I/usr/local/include
+EXTRA_LIBS =
+INCLUDES = -I/usr/local/php-5.3/include/php -I/usr/local/php-5.3/include/php/main -I/usr/local/php-5.3/include/php/TSRM -I/usr/local/php-5.3/include/php/Zend -I/usr/local/php-5.3/include/php/ext -I/usr/local/php-5.3/include/php/ext/date/lib -I/usr/local/include
 LFLAGS =
 LDFLAGS =
 SHARED_LIBTOOL =
@@ -47,7 +48,7 @@ INSTALL = $(top_srcdir)/build/shtool install -c
 INSTALL_DATA = $(INSTALL) -m 644
 
 DEFS = -DPHP_ATOM_INC -I$(top_builddir)/include -I$(top_builddir)/main -I$(top_srcdir)
-COMMON_FLAGS = $(DEFS) $(INCLUDES) $(EXTRA_INCLUDES) $(CPPFLAGS) $(PHP_FRAMEWORKPATH) $(EXTRA_LIBS)
+COMMON_FLAGS = $(DEFS) $(INCLUDES) $(EXTRA_INCLUDES) $(CPPFLAGS) $(PHP_FRAMEWORKPATH)
 
 all: $(all_targets) 
 	@echo
