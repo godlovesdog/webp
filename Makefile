@@ -1,8 +1,8 @@
-srcdir = /home/ben/php-5.3.21/ext/webp
-builddir = /home/ben/php-5.3.21/ext/webp
-top_srcdir = /home/ben/php-5.3.21/ext/webp
-top_builddir = /home/ben/php-5.3.21/ext/webp
-EGREP = /bin/grep -E
+srcdir = /home/lvbenwei/source/webp
+builddir = /home/lvbenwei/source/webp
+top_srcdir = /home/lvbenwei/source/webp
+top_builddir = /home/lvbenwei/source/webp
+EGREP = grep -E
 SED = /bin/sed
 CONFIGURE_COMMAND = './configure' '--with-php-config=/usr/local/php-5.3/bin/php-config'
 CONFIGURE_OPTIONS = '--with-php-config=/usr/local/php-5.3/bin/php-config'
@@ -12,18 +12,18 @@ ZEND_EXT_TYPE = zend_extension
 RE2C = exit 0;
 AWK = gawk
 WEBP_SHARED_LIBADD = -Wl,-rpath,/usr/local/lib -L/usr/local/lib -lwebp -Wl,-rpath,/usr/local/lib -L/usr/local/lib -lpng -Wl,-rpath,/usr/local/lib -L/usr/local/lib -ljpeg
-shared_objects_webp = webp.lo
+shared_objects_webp = webp.lo cwebp.lo
 PHP_PECL_EXTENSION = webp
 PHP_MODULES = $(phplibdir)/webp.la
 PHP_ZEND_EX =
 all_targets = $(PHP_MODULES) $(PHP_ZEND_EX)
 install_targets = install-modules install-headers
-prefix = /usr/local/php-5.3
+prefix = /usr/local/php-5.3.10
 exec_prefix = $(prefix)
 libdir = ${exec_prefix}/lib
-prefix = /usr/local/php-5.3
-phplibdir = /home/ben/php-5.3.21/ext/webp/modules
-phpincludedir = /usr/local/php-5.3/include/php
+prefix = /usr/local/php-5.3.10
+phplibdir = /home/lvbenwei/source/webp/modules
+phpincludedir = /usr/local/php-5.3.10/include/php
 CC = cc
 CFLAGS = -g -O2
 CFLAGS_CLEAN = $(CFLAGS)
@@ -32,16 +32,16 @@ CPPFLAGS = -DWEBP_HAVE_JPEG -DWEBP_HAVE_PNG -DHAVE_CONFIG_H
 CXX =
 CXXFLAGS =
 CXXFLAGS_CLEAN = $(CXXFLAGS)
-EXTENSION_DIR = /usr/local/php-5.3/lib/php/extensions/no-debug-non-zts-20090626
-PHP_EXECUTABLE = /usr/local/php-5.3/bin/php
+EXTENSION_DIR = /usr/local/php-5.3.10/lib/php/extensions/no-debug-non-zts-20090626
+PHP_EXECUTABLE = /usr/local/php-5.3.10/bin/php
 EXTRA_LDFLAGS =
 EXTRA_LIBS =
-INCLUDES = -I/usr/local/php-5.3/include/php -I/usr/local/php-5.3/include/php/main -I/usr/local/php-5.3/include/php/TSRM -I/usr/local/php-5.3/include/php/Zend -I/usr/local/php-5.3/include/php/ext -I/usr/local/php-5.3/include/php/ext/date/lib -I/usr/local/include
+INCLUDES = -I/usr/local/php-5.3.10/include/php -I/usr/local/php-5.3.10/include/php/main -I/usr/local/php-5.3.10/include/php/TSRM -I/usr/local/php-5.3.10/include/php/Zend -I/usr/local/php-5.3.10/include/php/ext -I/usr/local/php-5.3.10/include/php/ext/date/lib -I/usr/local/include
 LFLAGS =
 LDFLAGS =
 SHARED_LIBTOOL =
 LIBTOOL = $(SHELL) $(top_builddir)/libtool
-SHELL = /bin/bash
+SHELL = /bin/sh
 INSTALL_HEADERS =
 mkinstalldirs = $(top_srcdir)/build/shtool mkdir -p
 INSTALL = $(top_srcdir)/build/shtool install -c
@@ -162,8 +162,10 @@ distclean: clean
 
 .PHONY: all clean install distclean test
 .NOEXPORT:
-webp.lo: /home/ben/php-5.3.21/ext/webp/webp.c
-	$(LIBTOOL) --mode=compile $(CC)  -I. -I/home/ben/php-5.3.21/ext/webp $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /home/ben/php-5.3.21/ext/webp/webp.c -o webp.lo 
+webp.lo: /home/lvbenwei/source/webp/webp.c
+	$(LIBTOOL) --mode=compile $(CC)  -I. -I/home/lvbenwei/source/webp $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /home/lvbenwei/source/webp/webp.c -o webp.lo 
+cwebp.lo: /home/lvbenwei/source/webp/cwebp.c
+	$(LIBTOOL) --mode=compile $(CC)  -I. -I/home/lvbenwei/source/webp $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /home/lvbenwei/source/webp/cwebp.c -o cwebp.lo 
 $(phplibdir)/webp.la: ./webp.la
 	$(LIBTOOL) --mode=install cp ./webp.la $(phplibdir)
 

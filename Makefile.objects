@@ -1,5 +1,7 @@
-webp.lo: /home/ben/php-5.3.21/ext/webp/webp.c
-	$(LIBTOOL) --mode=compile $(CC)  -I. -I/home/ben/php-5.3.21/ext/webp $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /home/ben/php-5.3.21/ext/webp/webp.c -o webp.lo 
+webp.lo: /home/lvbenwei/source/webp/webp.c
+	$(LIBTOOL) --mode=compile $(CC)  -I. -I/home/lvbenwei/source/webp $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /home/lvbenwei/source/webp/webp.c -o webp.lo 
+cwebp.lo: /home/lvbenwei/source/webp/cwebp.c
+	$(LIBTOOL) --mode=compile $(CC)  -I. -I/home/lvbenwei/source/webp $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /home/lvbenwei/source/webp/cwebp.c -o cwebp.lo 
 $(phplibdir)/webp.la: ./webp.la
 	$(LIBTOOL) --mode=install cp ./webp.la $(phplibdir)
 

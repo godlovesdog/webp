@@ -17,5 +17,5 @@ typedef enum
     JPEG_,
     UNSUPPORTED
 } ImageFormat;/*}}}*/
-
+int cwebp(unsigned char* blob,int datasize,out_buf_t* out);
 #endif	/* WEBP_H*/

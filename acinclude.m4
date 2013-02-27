@@ -1,5 +1,5 @@
 dnl
-dnl $Id$
+dnl $Id: acinclude.m4 315258 2011-08-21 22:57:13Z rasmus $
 dnl
 dnl This file contains local autoconf functions.
 dnl
@@ -2438,12 +2438,7 @@ AC_DEFUN([PHP_SETUP_ICONV], [
   dnl
   dnl Check libc first if no path is provided in --with-iconv
   dnl
-
   if test "$PHP_ICONV" = "yes"; then
-    dnl Reset LIBS temporarily as it may have already been included
-    dnl -liconv in.
-    LIBS_save="$LIBS"
-    LIBS=
     AC_CHECK_FUNC(iconv, [
       found_iconv=yes
     ],[
@@ -2453,7 +2448,6 @@ AC_DEFUN([PHP_SETUP_ICONV], [
         found_iconv=yes
       ])
     ])
-    LIBS="$LIBS_save"
   fi
 
   dnl
