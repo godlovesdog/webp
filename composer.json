@@ -1,0 +1,13 @@
+{
+    "name": "godlovesdog/webp",
+    "description": "just for test",
+    "type": "vcs",
+    "authors": [
+        {
+            "name": "godlovesdog",
+            "email": "godlovesdog@126.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
